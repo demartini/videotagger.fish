@@ -1,0 +1,7 @@
+complete --exclusive --command videotagger --description "Smart Video Tagger"
+complete --exclusive --command videotagger --short-option d --long-option dry-run --description "Preview only files that would be renamed"
+complete --exclusive --command videotagger --short-option h --long-option help --description "Show help"
+complete --exclusive --command videotagger --short-option R --long-option recursive --description "Search videos recursively"
+complete --exclusive --command videotagger --short-option r --long-option rename --description "Rename videos"
+complete --exclusive --command videotagger --short-option u --long-option undo --description "Undo last rename"
+complete --exclusive --command videotagger --short-option v --long-option version --description "Show version"

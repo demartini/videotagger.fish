@@ -1,0 +1,52 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4.2.2
+
+      - name: Install Fish Shell
+        uses: fish-shop/install-fish-shell@v2.0.2
+
+      - name: Run pre-commit hooks
+        uses: pre-commit/action@v3.0.1
+
+  test:
+    name: Tests
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4.2.2
+
+      - name: Install Fish Shell
+        uses: fish-shop/install-fish-shell@v2.0.2
+
+      - name: Install FFmpeg
+        run: |
+          if test "$RUNNER_OS" = "Linux"
+              sudo apt update
+              sudo apt install -y ffmpeg
+          else if test "$RUNNER_OS" = "macOS"
+              brew install ffmpeg
+          end
+        shell: fish {0}
+
+      - name: Run Fishtape Tests
+        uses: fish-shop/run-fishtape-tests@v2.3.50
+        with:
+          patterns: tests/**.fish
+          raw-output: "true"
