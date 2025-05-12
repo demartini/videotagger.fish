@@ -46,7 +46,7 @@ jobs:
         shell: fish {0}
 
       - name: Run Fishtape Tests
-        uses: fish-shop/run-fishtape-tests@v2.3.50
+        uses: fish-shop/run-fishtape-tests@v2.3.54
         with:
           patterns: tests/**.fish
           raw-output: "true"
